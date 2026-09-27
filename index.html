@@ -1,0 +1,989 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>El Sujeto de Cuidado: Dimensiones del Ser Humano | UCCuyo</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Outfit -->
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Outfit', sans-serif;
+            background-color: #f7f9f6;
+        }
+        /* Estilo visual UCCuyo (Verde Oliva Institucional) */
+        .text-accent { color: #436600; }
+        .bg-accent { background-color: #436600; }
+        .bg-accent-hover:hover { background-color: #324d00; }
+        .bg-accent-light { background-color: #f1f6eb; }
+        .border-accent { border-color: #436600; }
+
+        .text-primary { color: #436600; }
+        .bg-primary { background-color: #436600; }
+        .bg-primary-dark { background-color: #324d00; }
+        .border-primary { border-color: #436600; }
+        
+        .tab-content {
+            display: none;
+        }
+        .tab-content.active {
+            display: block;
+            animation: fadeIn 0.3s ease-in-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(6px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .custom-scroll::-webkit-scrollbar {
+            width: 6px;
+        }
+        .custom-scroll::-webkit-scrollbar-track {
+            background: #f1f5f9;
+            border-radius: 10px;
+        }
+        .custom-scroll::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 10px;
+        }
+        .custom-scroll::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+        
+        button.bg-accent span {
+            color: rgba(255, 255, 255, 0.95) !important;
+        }
+
+        .card-hover {
+            transition: all 0.25s ease;
+        }
+        .card-hover:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px -4px rgba(67, 102, 0, 0.12);
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col justify-between">
+
+    <!-- Cabecera Institucional UCCuyo -->
+    <header class="bg-white border-b border-gray-200 shadow-sm sticky top-0 z-50">
+        <div class="max-w-6xl mx-auto px-4 py-4 flex items-center justify-between">
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-lg bg-accent flex items-center justify-center text-white font-bold text-xl shadow-md">
+                    FE
+                </div>
+                <div>
+                    <h1 class="text-lg font-bold text-gray-800 tracking-wide uppercase">EL SUJETO DE CUIDADO: DIMENSIONES DEL SER HUMANO</h1>
+                    <p class="text-xs text-gray-500 font-semibold">Fundamentos de Enfermería (Facultad de Cs. Médicas - UCCuyo)</p>
+                </div>
+            </div>
+            
+            <div class="flex items-center gap-3">
+                <!-- Botón Guía de Uso -->
+                <button onclick="openTutorial()" class="flex items-center gap-1.5 px-3 py-1.5 bg-accent text-white text-xs font-semibold rounded-lg shadow-sm hover:opacity-90 transition">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                    </svg>
+                    Guía de Uso
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Contenido Principal con navegación lateral -->
+    <main class="flex-1 max-w-6xl w-full mx-auto p-4 md:p-6 flex flex-col lg:flex-row gap-6">
+        
+        <!-- Menú de Navegación Lateral (5 Módulos Formativos Puros) -->
+        <nav class="w-full lg:w-64 flex flex-row lg:flex-col gap-2 bg-white p-3 rounded-2xl shadow-sm border border-gray-100 overflow-x-auto lg:overflow-x-visible whitespace-nowrap lg:whitespace-normal sticky top-20 h-fit">
+            <button onclick="switchTab('tab-inicio')" id="btn-tab-inicio" class="bg-accent text-white flex-1 lg:flex-none text-left py-2.5 px-4 rounded-xl text-sm font-semibold transition flex items-center gap-2.5 shadow-xs">
+                <i class="fa-solid fa-compass text-sm"></i>
+                <span>Presentación General</span>
+            </button>
+            <button onclick="switchTab('tab-mod1')" id="btn-tab-mod1" class="text-gray-700 hover:bg-gray-100 flex-1 lg:flex-none text-left py-2.5 px-4 rounded-xl text-sm font-medium transition flex items-center gap-2.5">
+                <i class="fa-solid fa-heart-pulse text-sm text-[#436600]"></i>
+                <span>1. Sujeto e Integralidad</span>
+            </button>
+            <button onclick="switchTab('tab-mod2')" id="btn-tab-mod2" class="text-gray-700 hover:bg-gray-100 flex-1 lg:flex-none text-left py-2.5 px-4 rounded-xl text-sm font-medium transition flex items-center gap-2.5">
+                <i class="fa-solid fa-cubes text-sm text-[#436600]"></i>
+                <span>2. Las Cuatro Dimensiones</span>
+            </button>
+            <button onclick="switchTab('tab-mod3')" id="btn-tab-mod3" class="text-gray-700 hover:bg-gray-100 flex-1 lg:flex-none text-left py-2.5 px-4 rounded-xl text-sm font-medium transition flex items-center gap-2.5">
+                <i class="fa-solid fa-user-injured text-sm text-[#436600]"></i>
+                <span>3. Caso Clínico (Roberto)</span>
+            </button>
+            <button onclick="switchTab('tab-mod4')" id="btn-tab-mod4" class="text-gray-700 hover:bg-gray-100 flex-1 lg:flex-none text-left py-2.5 px-4 rounded-xl text-sm font-medium transition flex items-center gap-2.5">
+                <i class="fa-solid fa-comments text-sm text-[#436600]"></i>
+                <span>4. Entrevista y Comunicación</span>
+            </button>
+            <button onclick="switchTab('tab-mod5')" id="btn-tab-mod5" class="text-gray-700 hover:bg-gray-100 flex-1 lg:flex-none text-left py-2.5 px-4 rounded-xl text-sm font-medium transition flex items-center gap-2.5">
+                <i class="fa-solid fa-sitemap text-sm text-[#436600]"></i>
+                <span>5. Síntesis Disciplinar</span>
+            </button>
+
+            <!-- Tarjeta lateral de relevancia clínica -->
+            <div class="hidden lg:block mt-4 pt-3 border-t border-gray-100 bg-[#f1f6eb]/70 p-3 rounded-xl border border-[#436600]/20 text-xs text-slate-700 space-y-1">
+                <div class="font-bold text-[#436600] flex items-center gap-1.5 text-[11px] uppercase tracking-wider">
+                    <i class="fa-solid fa-hand-holding-heart"></i> Cuidado Humanizado
+                </div>
+                <p class="leading-relaxed text-gray-600 text-[11.5px]">
+                    El ser humano nunca enferma en un solo órgano. Un dolor somático sacude las emociones, fragmenta los vínculos y cuestiona el sentido vital. Cuidar es abrazar la totalidad de la persona.
+                </p>
+            </div>
+        </nav>
+
+        <!-- Contenedores de Sección -->
+        <div class="flex-1 overflow-hidden">
+
+            <!-- ==========================================
+                 PESTAÑA 0: PRESENTACIÓN GENERAL
+                 ========================================== -->
+            <section id="tab-inicio" class="tab-content active space-y-6">
+                <!-- Banner de Bienvenida -->
+                <div class="bg-white rounded-2xl p-6 md:p-8 border border-gray-200 shadow-sm relative overflow-hidden">
+                    <div class="absolute -right-6 -bottom-6 text-gray-100 text-9xl font-black pointer-events-none select-none">
+                        <i class="fa-solid fa-user-nurse opacity-30"></i>
+                    </div>
+                    <div class="relative z-10 max-w-2xl">
+                        <span class="inline-flex items-center gap-1.5 bg-[#f1f6eb] text-[#436600] text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider mb-3 border border-[#436600]/20">
+                            <i class="fa-solid fa-hands-holding-circle"></i> Paradigma Humanista • Fundamentos del Cuidado
+                        </span>
+                        <h2 class="text-2xl md:text-3xl font-extrabold text-gray-900 tracking-tight mb-3">
+                            El Sujeto de Cuidado: Dimensiones Biológica, Psicológica, Social y Espiritual
+                        </h2>
+                        <p class="text-gray-600 text-sm md:text-base leading-relaxed mb-6">
+                            Bienvenido al entorno interactivo de aprendizaje de <strong>Fundamentos de Enfermería</strong> para el curso de ingreso a la Licenciatura en Enfermería de la <strong>Universidad Católica de Cuyo (San Juan)</strong>. En esta unidad profundizarás en el núcleo ontológico y ético de la profesión: la persona asistida no es un diagnóstico médico ni un número de habitación, sino un <strong>sujeto de cuidado</strong> integral e irrepetible, cuyas dimensiones interactúan de forma permanente e indisociable durante el proceso de salud y enfermedad.
+                        </p>
+                        <div class="flex flex-wrap gap-3">
+                            <button onclick="switchTab('tab-mod1')" class="bg-accent hover:bg-accent-hover text-white text-sm font-semibold px-5 py-2.5 rounded-xl shadow transition flex items-center gap-2">
+                                <span>Iniciar Módulo 1: Sujeto e Integralidad</span>
+                                <i class="fa-solid fa-arrow-right text-xs"></i>
+                            </button>
+                            <button onclick="switchTab('tab-mod2')" class="bg-white border border-gray-300 hover:bg-gray-50 text-gray-700 text-sm font-semibold px-5 py-2.5 rounded-xl transition flex items-center gap-2">
+                                <i class="fa-solid fa-cubes text-[#436600]"></i>
+                                <span>Explorar las 4 Dimensiones</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Resumen de Módulos Temáticos -->
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                    <div onclick="switchTab('tab-mod1')" class="bg-white p-5 rounded-2xl border border-gray-200 shadow-xs hover:border-[#436600]/40 card-hover transition cursor-pointer">
+                        <div class="w-10 h-10 rounded-xl bg-[#f1f6eb] text-[#436600] flex items-center justify-center text-lg mb-3 font-bold">
+                            <i class="fa-solid fa-heart-pulse"></i>
+                        </div>
+                        <h3 class="font-bold text-gray-900 text-sm mb-1">1. Sujeto e Integralidad</h3>
+                        <p class="text-xs text-gray-500 leading-relaxed">Definición de persona, familia y comunidad. Singularidad ontológica y advertencia contra el reduccionismo biomédico.</p>
+                    </div>
+
+                    <div onclick="switchTab('tab-mod2')" class="bg-white p-5 rounded-2xl border border-gray-200 shadow-xs hover:border-[#436600]/40 card-hover transition cursor-pointer">
+                        <div class="w-10 h-10 rounded-xl bg-[#f1f6eb] text-[#436600] flex items-center justify-center text-lg mb-3 font-bold">
+                            <i class="fa-solid fa-cubes"></i>
+                        </div>
+                        <h3 class="font-bold text-gray-900 text-sm mb-1">2. Las Cuatro Dimensiones</h3>
+                        <p class="text-xs text-gray-500 leading-relaxed">Esferas Biológica, Psicológica, Social y Espiritual. Valoración enfermera y herramientas de cuidado en cada una.</p>
+                    </div>
+
+                    <div onclick="switchTab('tab-mod3')" class="bg-white p-5 rounded-2xl border border-gray-200 shadow-xs hover:border-[#436600]/40 card-hover transition cursor-pointer">
+                        <div class="w-10 h-10 rounded-xl bg-[#f1f6eb] text-[#436600] flex items-center justify-center text-lg mb-3 font-bold">
+                            <i class="fa-solid fa-user-injured"></i>
+                        </div>
+                        <h3 class="font-bold text-gray-900 text-sm mb-1">3. Caso Clínico (Roberto)</h3>
+                        <p class="text-xs text-gray-500 leading-relaxed">Estudio de paciente con insuficiencia cardíaca y úlcera sacra: afectación simultánea y plan enfermero global.</p>
+                    </div>
+
+                    <div onclick="switchTab('tab-mod4')" class="bg-white p-5 rounded-2xl border border-gray-200 shadow-xs hover:border-[#436600]/40 card-hover transition cursor-pointer">
+                        <div class="w-10 h-10 rounded-xl bg-[#f1f6eb] text-[#436600] flex items-center justify-center text-lg mb-3 font-bold">
+                            <i class="fa-solid fa-comments"></i>
+                        </div>
+                        <h3 class="font-bold text-gray-900 text-sm mb-1">4. Entrevista y Comunicación</h3>
+                        <p class="text-xs text-gray-500 leading-relaxed">Principios de anamnesis holística, escucha activa y formulación de preguntas no reduccionistas.</p>
+                    </div>
+
+                    <div onclick="switchTab('tab-mod5')" class="bg-white p-5 rounded-2xl border border-gray-200 shadow-xs hover:border-[#436600]/40 card-hover transition cursor-pointer md:col-span-2 lg:col-span-2">
+                        <div class="w-10 h-10 rounded-xl bg-[#f1f6eb] text-[#436600] flex items-center justify-center text-lg mb-3 font-bold">
+                            <i class="fa-solid fa-sitemap"></i>
+                        </div>
+                        <h3 class="font-bold text-gray-900 text-sm mb-1">5. Síntesis Disciplinar</h3>
+                        <p class="text-xs text-gray-500 leading-relaxed">Matriz comparativa de las cuatro dimensiones y principios rectores del cuidado enfermero en la Universidad Católica de Cuyo.</p>
+                    </div>
+                </div>
+
+                <!-- Pilares de Formación Humanista -->
+                <div class="bg-white rounded-2xl p-6 border border-gray-200 shadow-sm">
+                    <h3 class="font-bold text-gray-900 text-base mb-4 flex items-center gap-2">
+                        <i class="fa-solid fa-graduation-cap text-[#436600]"></i>
+                        Competencias del Aspirante a Enfermería en la UCCuyo
+                    </h3>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs">
+                        <div class="p-4 bg-[#f1f6eb]/50 rounded-xl border border-[#436600]/15">
+                            <span class="font-bold text-[#436600] block mb-1 text-sm">Mirada Antropológica</span>
+                            Reconocer a la persona como un ser trascendente y digno, superando visiones mecanicistas o meramente biológicas de la enfermedad.
+                        </div>
+                        <div class="p-4 bg-[#f1f6eb]/50 rounded-xl border border-[#436600]/15">
+                            <span class="font-bold text-[#436600] block mb-1 text-sm">Pensamiento Sistémico</span>
+                            Comprender que cada síntoma somático impacta en el ámbito familiar, el estado de ánimo y las convicciones existenciales.
+                        </div>
+                        <div class="p-4 bg-[#f1f6eb]/50 rounded-xl border border-[#436600]/15">
+                            <span class="font-bold text-[#436600] block mb-1 text-sm">Comunicación Terapéutica</span>
+                            Desarrollar la escucha activa y compasiva, respetando la diversidad cultural y espiritual sin emitir juicios ni prejuicios.
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ==========================================
+                 MÓDULO 1: INTEGRALIDAD DEL SUJETO
+                 ========================================== -->
+            <section id="tab-mod1" class="tab-content space-y-6">
+                <div class="bg-white rounded-2xl p-6 md:p-8 border border-gray-200 shadow-sm">
+                    <div class="border-b border-gray-100 pb-4 mb-6 flex flex-col sm:flex-row justify-between sm:items-center gap-2">
+                        <div>
+                            <span class="text-xs uppercase tracking-wider text-[#436600] font-bold">Módulo 1</span>
+                            <h2 class="text-xl md:text-2xl font-bold text-gray-900">El Sujeto de Cuidado y su Integralidad</h2>
+                        </div>
+                        <div class="flex gap-2 self-start sm:self-auto">
+                            <button onclick="switchTab('tab-inicio')" class="text-xs font-semibold text-gray-500 hover:text-gray-800 flex items-center gap-1">
+                                <i class="fa-solid fa-chevron-left"></i> Inicio
+                            </button>
+                            <button onclick="switchTab('tab-mod2')" class="text-xs font-semibold text-[#436600] hover:text-[#324d00] flex items-center gap-1">
+                                Siguiente <i class="fa-solid fa-chevron-right"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <p class="text-sm text-gray-700 leading-relaxed mb-6">
+                        En la doctrina formativa de la <strong>Facultad de Ciencias Médicas de la UCCuyo</strong>, el <strong>Sujeto de Cuidado</strong> constituye el centro y la razón de ser de toda la praxis asistencial. La disciplina enfermera no atiende cuadros nosológicos abstractos, sino a <em>personas</em> de carne, hueso y espíritu inmersas en sus realidades familiares y sociales:
+                    </p>
+
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6 text-xs text-gray-700">
+                        <div class="p-5 rounded-2xl bg-[#f1f6eb] border border-[#436600]/20 space-y-2">
+                            <div class="w-8 h-8 rounded-lg bg-accent text-white flex items-center justify-center font-bold text-sm">
+                                <i class="fa-solid fa-fingerprint"></i>
+                            </div>
+                            <h3 class="font-bold text-gray-900 text-sm">Ser Único e Irrepetible</h3>
+                            <p class="leading-relaxed text-gray-600">
+                                Cada sujeto posee una biografía personal intransferible, una escala de valores propios, costumbres arraigadas y una manera íntima de vivenciar el padecimiento. No existen dos personas que vivan la misma enfermedad de forma idéntica.
+                            </p>
+                        </div>
+
+                        <div class="p-5 rounded-2xl bg-[#f1f6eb] border border-[#436600]/20 space-y-2">
+                            <div class="w-8 h-8 rounded-lg bg-accent text-white flex items-center justify-center font-bold text-sm">
+                                <i class="fa-solid fa-network-wired"></i>
+                            </div>
+                            <h3 class="font-bold text-gray-900 text-sm">Interrelación Dinámica</h3>
+                            <p class="leading-relaxed text-gray-600">
+                                Las dimensiones biológica, psicológica, social y espiritual no están fragmentadas ni operan en compartimentos estancos; forman un sistema holístico en continuo intercambio y ajuste dinámico.
+                            </p>
+                        </div>
+
+                        <div class="p-5 rounded-2xl bg-[#f1f6eb] border border-[#436600]/20 space-y-2">
+                            <div class="w-8 h-8 rounded-lg bg-accent text-white flex items-center justify-center font-bold text-sm">
+                                <i class="fa-solid fa-shield-heart"></i>
+                            </div>
+                            <h3 class="font-bold text-gray-900 text-sm">Dignidad y Autonomía</h3>
+                            <p class="leading-relaxed text-gray-600">
+                                La persona mantiene intacto su derecho a ser informada con veracidad, respetada en su intimidad y escuchada en sus decisiones de salud, erigiéndose como protagonista activo de su proceso de cuidado.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Advertencia de Reduccionismo -->
+                    <div class="bg-amber-50 border-2 border-amber-200 rounded-2xl p-6">
+                        <div class="flex items-start gap-4">
+                            <div class="w-10 h-10 rounded-xl bg-amber-100 text-amber-700 flex items-center justify-center text-lg shrink-0">
+                                <i class="fa-solid fa-triangle-exclamation"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-bold text-amber-950 text-base mb-1">El Peligro del Reduccionismo Biológico</h3>
+                                <p class="text-xs text-amber-900 leading-relaxed mb-3">
+                                    Reducir a la persona asistida exclusivamente a su diagnóstico médico o a una etiqueta clínica (ej. referirse a alguien como <em>"la cama 12"</em>, <em>"el diabético descompensado"</em> o <em>"la apendicectomía de la mañana"</em>) despersonaliza y destruye la esencia del cuidado de enfermería.
+                                </p>
+                                <p class="text-xs text-amber-800 leading-relaxed bg-white/70 p-3 rounded-xl border border-amber-200/60">
+                                    <strong>Ejemplo Clínico Integrador:</strong> Un dolor agudo postquirúrgico no es un simple impulso eléctrico en terminaciones nerviosas. Si no se atiende con prontitud y calidez, genera insomnio y angustia (dimensión psicológica), impide comunicarse con los familiares que esperan con zozobra (dimensión social) y produce frustración o pérdida de esperanza sobre el futuro (dimensión espiritual).
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ==========================================
+                 MÓDULO 2: LAS CUATRO DIMENSIONES
+                 ========================================== -->
+            <section id="tab-mod2" class="tab-content space-y-6">
+                <div class="bg-white rounded-2xl p-6 md:p-8 border border-gray-200 shadow-sm">
+                    <div class="border-b border-gray-100 pb-4 mb-6 flex flex-col sm:flex-row justify-between sm:items-center gap-2">
+                        <div>
+                            <span class="text-xs uppercase tracking-wider text-[#436600] font-bold">Módulo 2</span>
+                            <h2 class="text-xl md:text-2xl font-bold text-gray-900">Las Cuatro Dimensiones del Sujeto de Cuidado</h2>
+                        </div>
+                        <div class="flex gap-2 self-start sm:self-auto">
+                            <button onclick="switchTab('tab-mod1')" class="text-xs font-semibold text-gray-500 hover:text-gray-800 flex items-center gap-1">
+                                <i class="fa-solid fa-chevron-left"></i> Anterior
+                            </button>
+                            <button onclick="switchTab('tab-mod3')" class="text-xs font-semibold text-[#436600] hover:text-[#324d00] flex items-center gap-1">
+                                Siguiente <i class="fa-solid fa-chevron-right"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <p class="text-sm text-gray-700 leading-relaxed mb-6">
+                        Haz clic en cada una de las cuatro dimensiones fundamentales para explorar sus fundamentos teóricos, los elementos de valoración enfermera y las intervenciones asistenciales específicas:
+                    </p>
+
+                    <!-- Selector de Dimensiones -->
+                    <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-6">
+                        <button onclick="selectDimension('bio')" id="dim-btn-bio" class="dim-btn p-3.5 rounded-xl border-2 border-accent bg-[#f1f6eb] text-[#436600] font-bold text-xs transition-all flex flex-col items-center justify-center gap-1.5 shadow-2xs">
+                            <i class="fa-solid fa-heart-pulse text-lg"></i>
+                            <span>Biológica</span>
+                        </button>
+                        <button onclick="selectDimension('psico')" id="dim-btn-psico" class="dim-btn p-3.5 rounded-xl border border-gray-200 bg-white text-gray-700 hover:bg-gray-50 font-bold text-xs transition-all flex flex-col items-center justify-center gap-1.5">
+                            <i class="fa-solid fa-brain text-lg"></i>
+                            <span>Psicológica</span>
+                        </button>
+                        <button onclick="selectDimension('socio')" id="dim-btn-socio" class="dim-btn p-3.5 rounded-xl border border-gray-200 bg-white text-gray-700 hover:bg-gray-50 font-bold text-xs transition-all flex flex-col items-center justify-center gap-1.5">
+                            <i class="fa-solid fa-users text-lg"></i>
+                            <span>Social</span>
+                        </button>
+                        <button onclick="selectDimension('esp')" id="dim-btn-esp" class="dim-btn p-3.5 rounded-xl border border-gray-200 bg-white text-gray-700 hover:bg-gray-50 font-bold text-xs transition-all flex flex-col items-center justify-center gap-1.5">
+                            <i class="fa-solid fa-hands-praying text-lg"></i>
+                            <span>Espiritual</span>
+                        </button>
+                    </div>
+
+                    <!-- Panel Dimensión Biológica -->
+                    <div id="dim-panel-bio" class="dim-panel bg-slate-50 border border-slate-200 rounded-2xl p-6 space-y-4">
+                        <div class="flex items-center gap-3 text-red-700">
+                            <div class="w-10 h-10 rounded-xl bg-red-100 flex items-center justify-center text-xl">
+                                <i class="fa-solid fa-heart-pulse"></i>
+                            </div>
+                            <div>
+                                <h3 class="text-base font-bold text-gray-900">Dimensión Biológica: El Sustrato Físico y Fisiológico</h3>
+                                <p class="text-xs text-gray-500">Cuerpo, homeostasis, integridad tisular y funciones orgánicas vitales</p>
+                            </div>
+                        </div>
+                        <p class="text-xs text-gray-700 leading-relaxed">
+                            Abarca la estructura anatómica y el funcionamiento orgánico del cuerpo humano: respiración, hemodinámica, digestión, excreción, motilidad, regulación térmica e inmunidad. La enfermería valora tanto datos objetivos (medibles instrumentalmente) como subjetivos (referidos por la persona).
+                        </p>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs pt-2">
+                            <div class="bg-white p-4 rounded-xl border border-gray-200 space-y-2">
+                                <h4 class="font-bold text-[#436600] flex items-center gap-1.5">
+                                    <i class="fa-solid fa-stethoscope"></i> Valoración de Enfermería
+                                </h4>
+                                <ul class="text-gray-600 space-y-1.5 list-disc list-inside">
+                                    <li>Control y registro de signos vitales (PA, FC, FR, T°, SatO₂).</li>
+                                    <li>Evaluación del dolor mediante escalas clínicas validadas (EVA, EVN).</li>
+                                    <li>Monitoreo de patrones de eliminación urinaria e intestinal.</li>
+                                    <li>Examen de la piel, turgencia y riesgo de úlceras por presión.</li>
+                                </ul>
+                            </div>
+                            <div class="bg-white p-4 rounded-xl border border-gray-200 space-y-2">
+                                <h4 class="font-bold text-[#436600] flex items-center gap-1.5">
+                                    <i class="fa-solid fa-hand-holding-medical"></i> Intervenciones Asistenciales
+                                </h4>
+                                <ul class="text-gray-600 space-y-1.5 list-disc list-inside">
+                                    <li>Administración precisa y segura de fármacos y fluidoterapia.</li>
+                                    <li>Higiene, confort corporal y cambios posturales periódicos.</li>
+                                    <li>Oxigenoterapia y mantenimiento de vía aérea permeable.</li>
+                                    <li>Curación de heridas quirúrgicas con técnica aséptica estricta.</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Panel Dimensión Psicológica -->
+                    <div id="dim-panel-psico" class="dim-panel hidden bg-slate-50 border border-slate-200 rounded-2xl p-6 space-y-4">
+                        <div class="flex items-center gap-3 text-blue-700">
+                            <div class="w-10 h-10 rounded-xl bg-blue-100 flex items-center justify-center text-xl">
+                                <i class="fa-solid fa-brain"></i>
+                            </div>
+                            <div>
+                                <h3 class="text-base font-bold text-gray-900">Dimensión Psicológica: El Mundo Emocional y Cognitivo</h3>
+                                <p class="text-xs text-gray-500">Miedos, incertidumbre, autoimagen, cognición y afrontamiento</p>
+                            </div>
+                        </div>
+                        <p class="text-xs text-gray-700 leading-relaxed">
+                            Comprende la vida afectiva, las vivencias anímicas, la autoestima, la percepción de la propia imagen corporal tras un procedimiento invasivo o quirúrgico y los mecanismos de defensa utilizados para procesar la crisis de salud.
+                        </p>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs pt-2">
+                            <div class="bg-white p-4 rounded-xl border border-gray-200 space-y-2">
+                                <h4 class="font-bold text-[#436600] flex items-center gap-1.5">
+                                    <i class="fa-solid fa-ear-listen"></i> Valoración Emocional
+                                </h4>
+                                <ul class="text-gray-600 space-y-1.5 list-disc list-inside">
+                                    <li>Detección de estados de angustia, ansiedad e incertidumbre diagnóstica.</li>
+                                    <li>Identificación de tristeza, duelo o apatía reactiva ante el dolor.</li>
+                                    <li>Percepción de cambios corporales (amputaciones, ostomías, cicatrices).</li>
+                                    <li>Estrategias de afrontamiento y capacidad adaptativa al entorno.</li>
+                                </ul>
+                            </div>
+                            <div class="bg-white p-4 rounded-xl border border-gray-200 space-y-2">
+                                <h4 class="font-bold text-[#436600] flex items-center gap-1.5">
+                                    <i class="fa-solid fa-comments"></i> Herramientas de Cuidado
+                                </h4>
+                                <ul class="text-gray-600 space-y-1.5 list-disc list-inside">
+                                    <li>Escucha activa, empática y validación de las emociones sentidas.</li>
+                                    <li>Información clara, veraz y comprensible sobre los procedimientos.</li>
+                                    <li>Contención y presencia tranquilizadora en momentos de crisis.</li>
+                                    <li>Fomento del autocuidado para devolver la sensación de control.</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Panel Dimensión Social -->
+                    <div id="dim-panel-socio" class="dim-panel hidden bg-slate-50 border border-slate-200 rounded-2xl p-6 space-y-4">
+                        <div class="flex items-center gap-3 text-amber-700">
+                            <div class="w-10 h-10 rounded-xl bg-amber-100 flex items-center justify-center text-xl">
+                                <i class="fa-solid fa-users"></i>
+                            </div>
+                            <div>
+                                <h3 class="text-base font-bold text-gray-900">Dimensión Social: Vínculos, Familia y Entorno</h3>
+                                <p class="text-xs text-gray-500">Redes de apoyo, situación económica, vivienda, trabajo y roles comunitarios</p>
+                            </div>
+                        </div>
+                        <p class="text-xs text-gray-700 leading-relaxed">
+                            Engloba las relaciones interpersonales, la dinámica familiar, las condiciones de vida, el acceso a servicios básicos, el empleo y los roles sociales que la persona desempeña en su comunidad.
+                        </p>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs pt-2">
+                            <div class="bg-white p-4 rounded-xl border border-gray-200 space-y-2">
+                                <h4 class="font-bold text-[#436600] flex items-center gap-1.5">
+                                    <i class="fa-solid fa-house-chimney-user"></i> Valoración del Entorno
+                                </h4>
+                                <ul class="text-gray-600 space-y-1.5 list-disc list-inside">
+                                    <li>Identificación del cuidador principal y de la red de soporte familiar.</li>
+                                    <li>Condiciones habitacionales y viabilidad de cuidados en el hogar.</li>
+                                    <li>Impacto del ausentismo laboral o pérdida de ingresos económicos.</li>
+                                    <li>Detección temprana de soledad no deseada o vulnerabilidad social.</li>
+                                </ul>
+                            </div>
+                            <div class="bg-white p-4 rounded-xl border border-gray-200 space-y-2">
+                                <h4 class="font-bold text-[#436600] flex items-center gap-1.5">
+                                    <i class="fa-solid fa-handshake-angle"></i> Intervenciones de Apoyo
+                                </h4>
+                                <ul class="text-gray-600 space-y-1.5 list-disc list-inside">
+                                    <li>Involucrar activamente a la familia en las pautas de cuidado.</li>
+                                    <li>Articulación con Servicio Social y dispositivos comunitarios.</li>
+                                    <li>Educación sanitaria clara y accesible para el cuidador familiar.</li>
+                                    <li>Flexibilización de visitas para preservar el vínculo afectivo.</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Panel Dimensión Espiritual -->
+                    <div id="dim-panel-esp" class="dim-panel hidden bg-slate-50 border border-slate-200 rounded-2xl p-6 space-y-4">
+                        <div class="flex items-center gap-3 text-purple-700">
+                            <div class="w-10 h-10 rounded-xl bg-purple-100 flex items-center justify-center text-xl">
+                                <i class="fa-solid fa-hands-praying"></i>
+                            </div>
+                            <div>
+                                <h3 class="text-base font-bold text-gray-900">Dimensión Espiritual: Sentido, Valores y Trascendencia</h3>
+                                <p class="text-xs text-gray-500">Significado del sufrimiento, creencias religiosas, paz interior y esperanza</p>
+                            </div>
+                        </div>
+                        <p class="text-xs text-gray-700 leading-relaxed">
+                            Refiere a la búsqueda de sentido de la existencia humana, la conexión con lo trascendente, los valores morales, las creencias religiosas o filosóficas, el perdón, la reconciliación y la necesidad de paz interior en situaciones de vulnerabilidad o enfermedad crónica.
+                        </p>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs pt-2">
+                            <div class="bg-white p-4 rounded-xl border border-gray-200 space-y-2">
+                                <h4 class="font-bold text-[#436600] flex items-center gap-1.5">
+                                    <i class="fa-solid fa-compass"></i> Valoración Espiritual
+                                </h4>
+                                <ul class="text-gray-600 space-y-1.5 list-disc list-inside">
+                                    <li>¿De dónde obtiene fuerzas y consuelo la persona en momentos de crisis?</li>
+                                    <li>Necesidad de rezar, recibir sacramentos o hablar con un consejero de fe.</li>
+                                    <li>Búsqueda de significado ante el dolor o la enfermedad prolongada.</li>
+                                    <li>Presencia de angustia existencial, culpa o desasosiego interior.</li>
+                                </ul>
+                            </div>
+                            <div class="bg-white p-4 rounded-xl border border-gray-200 space-y-2">
+                                <h4 class="font-bold text-[#436600] flex items-center gap-1.5">
+                                    <i class="fa-solid fa-dove"></i> Cuidado y Acompañamiento
+                                </h4>
+                                <ul class="text-gray-600 space-y-1.5 list-disc list-inside">
+                                    <li>Respeto irrestricto a la diversidad de credos sin proselitismo ni imposición.</li>
+                                    <li>Facilitar espacios de silencio, recogimiento y oración íntima.</li>
+                                    <li>Contacto con los referentes espirituales según la voluntad del paciente.</li>
+                                    <li>Presencia compasiva, respetuosa y escucha sin juzgar.</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ==========================================
+                 MÓDULO 3: CASO CLÍNICO (DON ROBERTO)
+                 ========================================== -->
+            <section id="tab-mod3" class="tab-content space-y-6">
+                <div class="bg-white rounded-2xl p-6 md:p-8 border border-gray-200 shadow-sm">
+                    <div class="border-b border-gray-100 pb-4 mb-6 flex flex-col sm:flex-row justify-between sm:items-center gap-2">
+                        <div>
+                            <span class="text-xs uppercase tracking-wider text-[#436600] font-bold">Módulo 3</span>
+                            <h2 class="text-xl md:text-2xl font-bold text-gray-900">Análisis de Caso Clínico Integrador</h2>
+                        </div>
+                        <div class="flex gap-2 self-start sm:self-auto">
+                            <button onclick="switchTab('tab-mod2')" class="text-xs font-semibold text-gray-500 hover:text-gray-800 flex items-center gap-1">
+                                <i class="fa-solid fa-chevron-left"></i> Anterior
+                            </button>
+                            <button onclick="switchTab('tab-mod4')" class="text-xs font-semibold text-[#436600] hover:text-[#324d00] flex items-center gap-1">
+                                Siguiente <i class="fa-solid fa-chevron-right"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Ficha del Paciente -->
+                    <div class="bg-slate-900 text-white rounded-2xl p-6 mb-6 shadow-md border border-slate-800">
+                        <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center border-b border-white/10 pb-4 mb-4 gap-2">
+                            <div class="flex items-center gap-3">
+                                <div class="w-12 h-12 rounded-xl bg-white/10 flex items-center justify-center text-xl text-[#a3e635]">
+                                    <i class="fa-solid fa-hospital-user"></i>
+                                </div>
+                                <div>
+                                    <h3 class="text-lg font-bold text-white">Don Roberto Gómez (68 años)</h3>
+                                    <p class="text-xs text-gray-300">Servicio de Clínica Médica • Diagnóstico: Insuficiencia Cardíaca Crónica reagudizada y Úlcera Sacra Grado II</p>
+                                </div>
+                            </div>
+                            <span class="px-3 py-1 bg-amber-500/20 text-amber-300 border border-amber-400/30 rounded-full text-xs font-semibold">
+                                Internación Hospitalaria
+                            </span>
+                        </div>
+                        <p class="text-xs text-gray-300 leading-relaxed">
+                            Don Roberto ingresa con disnea de esfuerzo moderado y edemas periféricos. Pasa muchas horas acostado, lo que generó una úlcera por presión sacra dolorosa. El enfermero de turno nota que Don Roberto casi no habla, rehúye el contacto visual, se muestra muy preocupado porque su jubilación no alcanzará para los medicamentos prescritos, extraña profundamente a su nieta de 5 años y ha dejado de rezar el rosario porque siente que Dios lo ha abandonado en su sufrimiento.
+                        </p>
+                    </div>
+
+                    <h3 class="font-bold text-gray-900 text-sm mb-3 flex items-center gap-2">
+                        <i class="fa-solid fa-sitemap text-[#436600]"></i> El Efecto Dominó Holístico en Don Roberto:
+                    </h3>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6 text-xs">
+                        <div class="p-4 rounded-xl bg-red-50/70 border border-red-200">
+                            <div class="font-bold text-red-900 mb-1 flex items-center gap-2">
+                                <i class="fa-solid fa-heart-pulse text-red-600"></i> Afectación Biológica Primaria
+                            </div>
+                            <p class="text-gray-700 leading-relaxed">
+                                Dificultad respiratoria por sobrecarga de volumen, dolor punzante en región sacra por pérdida de integridad tisular, movilidad reducida e insomnio secundario al dolor postural.
+                            </p>
+                        </div>
+
+                        <div class="p-4 rounded-xl bg-blue-50/70 border border-blue-200">
+                            <div class="font-bold text-blue-900 mb-1 flex items-center gap-2">
+                                <i class="fa-solid fa-brain text-blue-600"></i> Afectación Psicológica Derivada
+                            </div>
+                            <p class="text-gray-700 leading-relaxed">
+                                Ansiedad ante la posibilidad de perder su autovalimiento, tristeza profunda que deriva en apatía, miedo a convertirse en una carga para su familia y sensación de descontrol.
+                            </p>
+                        </div>
+
+                        <div class="p-4 rounded-xl bg-amber-50/70 border border-amber-200">
+                            <div class="font-bold text-amber-900 mb-1 flex items-center gap-2">
+                                <i class="fa-solid fa-users text-amber-600"></i> Afectación Social Consecuente
+                            </div>
+                            <p class="text-gray-700 leading-relaxed">
+                                Aislamiento del hogar, angustia por la separación de su nieta (a quien solía cuidar por las tardes) y zozobra económica al dudar de si podrá costear el tratamiento postalta.
+                            </p>
+                        </div>
+
+                        <div class="p-4 rounded-xl bg-purple-50/70 border border-purple-200">
+                            <div class="font-bold text-purple-900 mb-1 flex items-center gap-2">
+                                <i class="fa-solid fa-hands-praying text-purple-600"></i> Afectación Espiritual Profunda
+                            </div>
+                            <p class="text-gray-700 leading-relaxed">
+                                Pérdida momentánea de esperanza, abandono de su práctica cotidiana de rezar el rosario y vivencia de vacío existencial ante la fragilidad de su salud.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Plan Enfermero Holístico -->
+                    <div class="bg-[#f1f6eb] border border-[#436600]/25 rounded-2xl p-6">
+                        <h4 class="font-bold text-[#436600] text-sm mb-2 flex items-center gap-2">
+                            <i class="fa-solid fa-hand-holding-medical"></i> Plan de Cuidado Enfermero Holístico UCCuyo
+                        </h4>
+                        <p class="text-xs text-gray-700 leading-relaxed mb-3">
+                            Un profesional formado con vocación humanista en nuestra Facultad articula intervenciones sincrónicas en las cuatro dimensiones:
+                        </p>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs text-gray-700">
+                            <div class="p-3 bg-white rounded-xl border border-[#436600]/15">
+                                <strong>1. Alivio del Dolor y Confort Somático:</strong> Manejo analgésico pautado, curación aséptica de la úlcera sacra y cambios posturales c/2 horas sobre colchón neumático.
+                            </div>
+                            <div class="p-3 bg-white rounded-xl border border-[#436600]/15">
+                                <strong>2. Escucha Activa y Contención Afectiva:</strong> Espacios diarios para dialogar, validar sus temores sin juzgarlos y explicarle con calidez la evolución de su patología.
+                            </div>
+                            <div class="p-3 bg-white rounded-xl border border-[#436600]/15">
+                                <strong>3. Vínculo Familiar y Soporte Social:</strong> Facilitar videollamadas con su nieta, flexibilizar visitas y coordinar con el Servicio Social la cobertura de fármacos al alta.
+                            </div>
+                            <div class="p-3 bg-white rounded-xl border border-[#436600]/15">
+                                <strong>4. Acompañamiento Espiritual Respetuoso:</strong> Preguntarle con tacto si desea tener su rosario cerca o recibir la visita reconfortante de un capellán hospitalario.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ==========================================
+                 MÓDULO 4: ENTREVISTA Y VALORACIÓN HOLÍSTICA
+                 ========================================== -->
+            <section id="tab-mod4" class="tab-content space-y-6">
+                <div class="bg-white rounded-2xl p-6 md:p-8 border border-gray-200 shadow-sm">
+                    <div class="border-b border-gray-100 pb-4 mb-6 flex flex-col sm:flex-row justify-between sm:items-center gap-2">
+                        <div>
+                            <span class="text-xs uppercase tracking-wider text-[#436600] font-bold">Módulo 4</span>
+                            <h2 class="text-xl md:text-2xl font-bold text-gray-900">Entrevista Clínica y Valoración No Reduccionista</h2>
+                        </div>
+                        <div class="flex gap-2 self-start sm:self-auto">
+                            <button onclick="switchTab('tab-mod3')" class="text-xs font-semibold text-gray-500 hover:text-gray-800 flex items-center gap-1">
+                                <i class="fa-solid fa-chevron-left"></i> Anterior
+                            </button>
+                            <button onclick="switchTab('tab-mod5')" class="text-xs font-semibold text-[#436600] hover:text-[#324d00] flex items-center gap-1">
+                                Siguiente <i class="fa-solid fa-chevron-right"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <p class="text-sm text-gray-700 leading-relaxed mb-6">
+                        La entrevista clínica de enfermería no es un interrogatorio burocrático de síntomas. Es un encuentro humano privilegiado donde el lenguaje, el tono de voz y la calidad de las preguntas abren la puerta al entendimiento integral de la persona.
+                    </p>
+
+                    <!-- Comparativa: Reduccionismo vs Mirada Holística -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6 text-xs">
+                        <div class="p-5 rounded-2xl bg-rose-50/70 border border-rose-200 space-y-2">
+                            <div class="flex items-center gap-2 font-bold text-rose-900 text-sm">
+                                <i class="fa-solid fa-circle-xmark text-rose-600"></i>
+                                <span>La Pregunta Reduccionista (Biomédica Pura)</span>
+                            </div>
+                            <p class="text-rose-950 leading-relaxed">
+                                • <em>"¿Cuántos grados de fiebre tuvo y a qué hora tomó el paracetamol?"</em><br>
+                                • <em>"¿Por qué no vino antes a la guardia si la tos era de hace dos semanas?"</em><br>
+                                • <strong>Efecto en el paciente:</strong> Se siente juzgado, reducido a un órgano dañado y cohibido para expresar sus verdaderas angustias.
+                            </p>
+                        </div>
+
+                        <div class="p-5 rounded-2xl bg-[#f1f6eb] border border-[#436600]/25 space-y-2">
+                            <div class="flex items-center gap-2 font-bold text-[#436600] text-sm">
+                                <i class="fa-solid fa-circle-check text-[#436600]"></i>
+                                <span>La Pregunta Holística (Cuidado Integral)</span>
+                            </div>
+                            <p class="text-gray-800 leading-relaxed">
+                                • <em>"¿Cómo está sobrellevando esta situación en su hogar y qué es lo que más le preocupa en este momento?"</em><br>
+                                • <em>"¿De dónde encuentra fuerzas y apoyo para afrontar los momentos de mayor dificultad?"</em><br>
+                                • <strong>Efecto en el paciente:</strong> Experimenta consuelo, confianza terapéutica y siente que su sufrimiento es comprendido en su totalidad.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Pautas para la Anamnesis Integral -->
+                    <div class="bg-white border border-gray-200 rounded-2xl p-6 shadow-xs space-y-3 text-xs text-gray-700">
+                        <h4 class="font-bold text-gray-900 text-sm flex items-center gap-2">
+                            <i class="fa-solid fa-list-check text-[#436600]"></i> Guía Práctica de Valoración de las 4 Dimensiones en la Admisión
+                        </h4>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-1">
+                            <div class="p-3 bg-slate-50 rounded-xl border border-gray-150 space-y-1">
+                                <strong class="text-gray-900 block font-semibold">Dimensión Biológica:</strong>
+                                Explorar no sólo signos vitales, sino hábitos de sueño, apetito, ritmo evacuatorio y tolerancia a la actividad cotidiana.
+                            </div>
+                            <div class="p-3 bg-slate-50 rounded-xl border border-gray-150 space-y-1">
+                                <strong class="text-gray-900 block font-semibold">Dimensión Psicológica:</strong>
+                                Observar el contacto visual, la postura corporal, el llanto silente y preguntar abiertamente: <em>"¿Cómo se siente anímicamente hoy?"</em>
+                            </div>
+                            <div class="p-3 bg-slate-50 rounded-xl border border-gray-150 space-y-1">
+                                <strong class="text-gray-900 block font-semibold">Dimensión Social:</strong>
+                                Indagar quién vive con el paciente, quién lo asiste en el hogar y si existen barreras económicas o de transporte para los controles.
+                            </div>
+                            <div class="p-3 bg-slate-50 rounded-xl border border-gray-150 space-y-1">
+                                <strong class="text-gray-900 block font-semibold">Dimensión Espiritual:</strong>
+                                Indagar fuentes de sentido, respetar silencios y brindar apertura a sus expresiones de fe sin ninguna clase de imposición.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ==========================================
+                 MÓDULO 5: SÍNTESIS DISCIPLINAR
+                 ========================================== -->
+            <section id="tab-mod5" class="tab-content space-y-6">
+                <div class="bg-white rounded-2xl p-6 md:p-8 border border-gray-200 shadow-sm">
+                    <div class="border-b border-gray-100 pb-4 mb-6 flex flex-col sm:flex-row justify-between sm:items-center gap-2">
+                        <div>
+                            <span class="text-xs uppercase tracking-wider text-[#436600] font-bold">Módulo 5</span>
+                            <h2 class="text-xl md:text-2xl font-bold text-gray-900">Síntesis Disciplinar del Cuidado Holístico</h2>
+                        </div>
+                        <div class="flex gap-2 self-start sm:self-auto">
+                            <button onclick="switchTab('tab-mod4')" class="text-xs font-semibold text-gray-500 hover:text-gray-800 flex items-center gap-1">
+                                <i class="fa-solid fa-chevron-left"></i> Anterior
+                            </button>
+                            <button onclick="switchTab('tab-inicio')" class="text-xs font-semibold text-[#436600] hover:text-[#324d00] flex items-center gap-1">
+                                Volver al Inicio <i class="fa-solid fa-rotate-left"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <p class="text-sm text-gray-700 leading-relaxed mb-6">
+                        La siguiente matriz recapitula la interconexión de las cuatro dimensiones, su manifestación clínica y la respuesta profesional que caracteriza a los egresados de la Universidad Católica de Cuyo:
+                    </p>
+
+                    <!-- Matriz Comparativa Síntesis -->
+                    <div class="overflow-x-auto mb-6">
+                        <table class="w-full text-xs text-left border-collapse">
+                            <thead>
+                                <tr class="bg-[#f1f6eb] text-[#436600] font-bold border-b border-gray-200">
+                                    <th class="p-3">Dimensión</th>
+                                    <th class="p-3">Foco de la Dimensión</th>
+                                    <th class="p-3">Manifestación de Alteración</th>
+                                    <th class="p-3">Intervención Enfermera UCCuyo</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-gray-100 text-gray-700">
+                                <tr>
+                                    <td class="p-3 font-semibold text-gray-900 flex items-center gap-1.5">
+                                        <i class="fa-solid fa-heart-pulse text-red-600"></i> Biológica
+                                    </td>
+                                    <td class="p-3">Estructura anatómica, homeostasis y funciones orgánicas vitales.</td>
+                                    <td class="p-3">Dolor físico, descompensación hemodinámica, disnea, lesión cutánea.</td>
+                                    <td class="p-3">Cuidados somáticos, confort físico, cambios posturales y farmacoterapia segura.</td>
+                                </tr>
+                                <tr>
+                                    <td class="p-3 font-semibold text-gray-900 flex items-center gap-1.5">
+                                        <i class="fa-solid fa-brain text-blue-600"></i> Psicológica
+                                    </td>
+                                    <td class="p-3">Mundo afectivo, salud mental, autoestima y mecanismos de afrontamiento.</td>
+                                    <td class="p-3">Miedo, ansiedad anticipatoria, angustia, tristeza reactiva, apatía.</td>
+                                    <td class="p-3">Escucha empática, validación emocional, información veraz y contención.</td>
+                                </tr>
+                                <tr>
+                                    <td class="p-3 font-semibold text-gray-900 flex items-center gap-1.5">
+                                        <i class="fa-solid fa-users text-amber-600"></i> Social
+                                    </td>
+                                    <td class="p-3">Vínculos de afecto, redes de apoyo, familia, trabajo y economía.</td>
+                                    <td class="p-3">Aislamiento hospitalario, pérdida de rol social, zozobra económica.</td>
+                                    <td class="p-3">Involucrar a la familia, educación al cuidador y articulación con redes de apoyo.</td>
+                                </tr>
+                                <tr>
+                                    <td class="p-3 font-semibold text-gray-900 flex items-center gap-1.5">
+                                        <i class="fa-solid fa-hands-praying text-purple-600"></i> Espiritual
+                                    </td>
+                                    <td class="p-3">Sentido de vida, trascendencia, valores, fe religiosa y paz interior.</td>
+                                    <td class="p-3">Desesperanza, vacío existencial, abandono de la fe, culpa moral.</td>
+                                    <td class="p-3">Respeto irrestricto de creencias, facilitación pastoral y presencia compasiva.</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- Mensaje Institucional de Cierre -->
+                    <div class="bg-[#f1f6eb] border border-[#436600]/20 rounded-2xl p-6 flex flex-col sm:flex-row items-center justify-between gap-4">
+                        <div class="flex items-center gap-4">
+                            <div class="w-12 h-12 rounded-xl bg-accent text-white flex items-center justify-center text-xl shadow-xs">
+                                <i class="fa-solid fa-user-nurse"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-gray-900 text-sm">Compromiso Formativo con el Cuidado Integral</h4>
+                                <p class="text-xs text-gray-600 mt-0.5">
+                                    En la Facultad de Ciencias Médicas de la UCCuyo concebimos la enfermería como una ciencia del cuidado cimentada en la dignidad inalienable de la persona humana.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+        </div>
+    </main>
+
+    <!-- Footer Institucional Estándar -->
+    <footer class="bg-white border-t border-gray-200 mt-6">
+        <div class="max-w-6xl mx-auto px-4 py-3 text-center text-xs text-gray-500 font-semibold tracking-wide">
+            Desarrollado por vesalio - Todos los derechos reservados
+        </div>
+    </footer>
+
+    <!-- GUÍA DE USO MODAL -->
+    <div id="tutorial-modal" class="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50 hidden p-4">
+        <div class="bg-white rounded-2xl max-w-2xl w-full p-6 shadow-xl border border-gray-100 flex flex-col gap-4 relative">
+            <button onclick="closeTutorial()" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600 transition">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                </svg>
+            </button>
+            
+            <div class="flex items-center gap-2.5 border-b border-gray-100 pb-3">
+                <div class="w-8 h-8 rounded-lg bg-accent-light flex items-center justify-center text-accent font-bold text-base">
+                    💡
+                </div>
+                <div>
+                    <h3 class="text-base font-bold text-slate-800 font-sans">Guía de Uso del Simulador Teórico</h3>
+                    <p class="text-[11px] text-gray-500">El Sujeto de Cuidado y sus Dimensiones (Facultad de Cs. Médicas - UCCuyo)</p>
+                </div>
+            </div>
+
+            <div class="space-y-3.5 text-xs text-slate-600 leading-relaxed overflow-y-auto max-h-[400px] pr-2 custom-scroll">
+                <!-- Propósito y Marco Académico -->
+                <div class="p-3.5 bg-accent-light/70 rounded-xl border border-accent/25">
+                    <strong class="text-accent block mb-1 font-sans text-xs flex items-center gap-1.5">
+                        <i class="fa-solid fa-bullseye text-sm"></i> Propósito del Simulador
+                    </strong>
+                    Este entorno formativo ha sido desarrollado para que los aspirantes a la <strong>Licenciatura en Enfermería de la Facultad de Ciencias Médicas (Universidad Católica de Cuyo)</strong> dominen el marco teórico del sujeto de cuidado, analicen las cuatro dimensiones fundamentales del ser humano (biológica, psicológica, social y espiritual) y comprendan cómo aplicar una valoración holística y humanizada libre de reduccionismos.
+                </div>
+
+                <!-- Modos de Navegación y Herramientas -->
+                <div class="p-3.5 bg-slate-50 rounded-xl border border-slate-150 space-y-2">
+                    <strong class="text-primary block font-sans text-xs flex items-center gap-1.5">
+                        <i class="fa-solid fa-compass text-sm"></i> Navegación y Herramientas Formativas
+                    </strong>
+                    <ul class="space-y-1.5 text-[11.5px] text-gray-600 pl-1">
+                        <li class="flex items-start gap-2">
+                            <i class="fa-solid fa-bars text-accent mt-0.5 shrink-0 text-xs"></i>
+                            <span><strong>Menú Lateral:</strong> Permite alternar de manera instantánea entre la Presentación General y los 5 módulos formativos sin recargar la página.</span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <i class="fa-solid fa-cubes text-accent mt-0.5 shrink-0 text-xs"></i>
+                            <span><strong>Explorador de Dimensiones (Módulo 2):</strong> Pestañas interactivas para examinar con detalle la valoración e intervenciones de las esferas biológica, psicológica, social y espiritual.</span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <i class="fa-solid fa-user-injured text-accent mt-0.5 shrink-0 text-xs"></i>
+                            <span><strong>Caso Clínico Integrador (Módulo 3):</strong> Estudio multidimensional de Don Roberto para observar cómo un síntoma somático impacta en el ámbito anímico, familiar y espiritual.</span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <i class="fa-solid fa-comments text-accent mt-0.5 shrink-0 text-xs"></i>
+                            <span><strong>Entrevista y Comunicación Terapéutica (Módulo 4):</strong> Análisis comparativo entre preguntas reduccionistas cerradas y preguntas holísticas abiertas.</span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <i class="fa-solid fa-sitemap text-accent mt-0.5 shrink-0 text-xs"></i>
+                            <span><strong>Matriz de Síntesis Disciplinar (Módulo 5):</strong> Cuadro comparativo integrador del cuidado enfermero humanizado.</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Desglose Temático por Módulo -->
+                <div class="p-3.5 bg-slate-50 rounded-xl border border-slate-150 space-y-2.5">
+                    <strong class="text-primary block font-sans text-xs flex items-center gap-1.5">
+                        <i class="fa-solid fa-book-bookmark text-sm"></i> Desglose Temático por Módulo:
+                    </strong>
+                    <ul class="space-y-2.5 text-[11px] text-gray-600 pl-1">
+                        <li class="border-b border-gray-200 pb-2">
+                            <strong class="text-gray-900 block text-xs">Presentación General:</strong>
+                            El paradigma humanista de la enfermería y competencias esenciales del aspirante.
+                        </li>
+                        <li class="border-b border-gray-200 pb-2">
+                            <strong class="text-gray-900 block text-xs">1. Sujeto e Integralidad:</strong>
+                            Persona, familia y comunidad como seres únicos, irrepetibles y con capacidad de decisión. Peligro del reduccionismo biomédico.
+                        </li>
+                        <li class="border-b border-gray-200 pb-2">
+                            <strong class="text-gray-900 block text-xs">2. Las Cuatro Dimensiones:</strong>
+                            Contenidos fisiológicos, emocionales, relacionales y de trascendencia espiritual.
+                        </li>
+                        <li class="border-b border-gray-200 pb-2">
+                            <strong class="text-gray-900 block text-xs">3. Caso Clínico (Roberto):</strong>
+                            Mapeo multidimensional ante insuficiencia cardíaca y úlcera sacra, junto al plan enfermero global.
+                        </li>
+                        <li class="border-b border-gray-200 pb-2">
+                            <strong class="text-gray-900 block text-xs">4. Entrevista y Comunicación:</strong>
+                            Herramientas de entrevista clínica, empatía y escucha activa libre de prejuicios.
+                        </li>
+                        <li>
+                            <strong class="text-gray-900 block text-xs">5. Síntesis Disciplinar:</strong>
+                            Matriz comparativa de la disciplina y principios éticos del cuidado en la UCCuyo.
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Consejos Pedagógicos -->
+                <div class="p-3 bg-amber-50/80 rounded-xl border border-amber-200 text-[11px] text-amber-900 space-y-1">
+                    <strong class="block font-bold text-amber-950 flex items-center gap-1.5">
+                        <i class="fa-solid fa-lightbulb text-amber-700"></i> Recomendaciones Pedagógicas UCCuyo:
+                    </strong>
+                    <p>
+                        1. Al valorar a una persona, nunca te limites a los signos vitales; indaga cómo se siente emocionalmente y quién lo acompaña.<br>
+                        2. Recuerda que el dolor físico siempre altera la esfera social y psicológica del paciente.<br>
+                        3. Respeta siempre las creencias espirituales y culturales del sujeto de cuidado sin emitir juicios ni forzar posturas personales.
+                    </p>
+                </div>
+            </div>
+
+            <div class="mt-1 pt-2 border-t border-gray-100 flex items-center justify-between">
+                <span class="text-[10.5px] text-gray-400 font-medium">UCCuyo • Fundamentos de Enfermería</span>
+                <button onclick="closeTutorial()" class="bg-primary text-white font-semibold py-2 px-5 rounded-lg text-xs hover:opacity-90 transition shadow-sm">
+                    Entendido, Comenzar
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Script de Lógica Interactiva y Navegación -->
+    <script>
+        // Modal Tutorial
+        function openTutorial() {
+            const m = document.getElementById('tutorial-modal');
+            if (m) m.classList.remove('hidden');
+        }
+        function closeTutorial() {
+            const m = document.getElementById('tutorial-modal');
+            if (m) m.classList.add('hidden');
+        }
+
+        window.addEventListener('click', function(e) {
+            const m = document.getElementById('tutorial-modal');
+            if (e.target === m) {
+                closeTutorial();
+            }
+        });
+
+        // Navegación fluida entre pestañas temáticas
+        function switchTab(tabId) {
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+            
+            const target = document.getElementById(tabId);
+            if (target) {
+                target.classList.add('active');
+            }
+
+            const tabIds = ['tab-inicio', 'tab-mod1', 'tab-mod2', 'tab-mod3', 'tab-mod4', 'tab-mod5'];
+            tabIds.forEach(id => {
+                const btn = document.getElementById('btn-' + id);
+                if (btn) {
+                    if (id === tabId) {
+                        btn.className = 'bg-accent text-white flex-1 lg:flex-none text-left py-2.5 px-4 rounded-xl text-sm font-semibold transition flex items-center gap-2.5 shadow-xs';
+                        const icon = btn.querySelector('i');
+                        if (icon) {
+                            icon.classList.remove('text-[#436600]');
+                            icon.classList.add('text-white');
+                        }
+                    } else {
+                        btn.className = 'text-gray-700 hover:bg-gray-100 flex-1 lg:flex-none text-left py-2.5 px-4 rounded-xl text-sm font-medium transition flex items-center gap-2.5';
+                        const icon = btn.querySelector('i');
+                        if (icon) {
+                            icon.classList.remove('text-white');
+                            icon.classList.add('text-[#436600]');
+                        }
+                    }
+                }
+            });
+
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Selector de Dimensiones en Módulo 2
+        function selectDimension(dim) {
+            document.querySelectorAll('.dim-panel').forEach(el => el.classList.add('hidden'));
+            document.querySelectorAll('.dim-btn').forEach(btn => {
+                btn.className = 'dim-btn p-3.5 rounded-xl border border-gray-200 bg-white text-gray-700 hover:bg-gray-50 font-bold text-xs transition-all flex flex-col items-center justify-center gap-1.5';
+            });
+
+            const panel = document.getElementById(`dim-panel-${dim}`);
+            if (panel) panel.classList.remove('hidden');
+
+            const activeBtn = document.getElementById(`dim-btn-${dim}`);
+            if (activeBtn) {
+                activeBtn.className = 'dim-btn p-3.5 rounded-xl border-2 border-accent bg-[#f1f6eb] text-[#436600] font-bold text-xs transition-all flex flex-col items-center justify-center gap-1.5 shadow-2xs';
+            }
+        }
+    </script>
+</body>
+</html>
